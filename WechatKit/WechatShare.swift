@@ -36,6 +36,27 @@ extension WechatManager {
         self.sendReq(message, scence: scence)
     }
 
+    public func shareImage(_ scence: WXScene,
+                      image: UIImage?) {
+
+        var message = self.getImageMesage(image)
+
+        self.sendReq(message, scence: scence)
+    }
+
+    fileprivate func getImageMesage(_ image: UIImage?)
+        -> WXMediaMessage {
+
+            let message = WXMediaMessage()
+
+            if let shareImage =  image?.jpegData(compressionQuality: 1) {
+                 let object = WXImageObject()
+                 object.imageData = shareImage
+                 message.mediaObject = object
+            }
+            return message
+    }
+
     /// 分享 Url
     ///
     /// - Parameters:
